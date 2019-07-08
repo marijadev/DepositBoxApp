@@ -1,0 +1,9 @@
+@import '../../variables.scss';
+
+.depositBox__screen {
+    height: 70px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: $backlight-off;
+}

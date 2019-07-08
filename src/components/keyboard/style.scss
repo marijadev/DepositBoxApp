@@ -1,0 +1,8 @@
+@import '../../variables.scss';
+
+.depositBox__keyboard {
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}

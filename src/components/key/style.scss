@@ -1,0 +1,22 @@
+@import '../../variables.scss';
+
+.depositBox__key {
+	width: 28%;
+	padding: 10px;
+	margin-bottom: 10px;
+	outline: none;
+	font-size: 26px;
+	background-color: $button;
+	color: $button-text;
+	border: none;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 0px 2px 1px rgba(23, 23, 23, 0.7);
+	-moz-box-shadow: 0px 0px 2px 1px rgba(23, 23, 23, 0.7);
+	box-shadow: 0px 0px 2px 1px rgba(23, 23, 23, 0.7);
+	transition: background-color .2s ease;
+	cursor: pointer;
+
+	&:hover {
+		background-color: $main-background;
+	}
+}
