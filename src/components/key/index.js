@@ -6,14 +6,16 @@ import './style.scss';
 
 let Key = props => {
 	const handleClick = e => {
-		const { passcode } = props;
+		const { passcode, serviceMode } = props;
 		let trimmedPasscodeToLastSixCharacters = `${passcode}${
 			e.target.innerHTML
 		}`;
-		trimmedPasscodeToLastSixCharacters = trimmedPasscodeToLastSixCharacters.substring(
-			trimmedPasscodeToLastSixCharacters.length - 6,
-			trimmedPasscodeToLastSixCharacters.length
-		);
+		trimmedPasscodeToLastSixCharacters = serviceMode
+			? trimmedPasscodeToLastSixCharacters
+			: trimmedPasscodeToLastSixCharacters.substring(
+					trimmedPasscodeToLastSixCharacters.length - 6,
+					trimmedPasscodeToLastSixCharacters.length
+			  );
 		props.debouncedHandler();
 		props.debouncedHandlerIdleScreen();
 		props.dispatch(setScreenActive(true));
@@ -34,7 +36,8 @@ let Key = props => {
 
 const mapStateToProps = store => {
 	return {
-		passcode: store.passcode
+		passcode: store.passcode,
+		serviceMode: store.serviceMode
 	};
 };
 

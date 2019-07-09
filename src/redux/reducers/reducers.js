@@ -4,7 +4,8 @@ import {
 	DEVICE_LOCK,
 	SET_PASSCODE,
 	SAVE_PASSCODE,
-	READ_SCREEN_MESSAGE
+	READ_SCREEN_MESSAGE,
+	SET_SERVICE_MODE
 } from '../actions/types.js';
 
 const initialState = {
@@ -13,7 +14,8 @@ const initialState = {
 	deviceLocked: false,
 	passcode: '',
 	savedPasscode: '',
-	readScreenMessage: false
+	readScreenMessage: false,
+	serviceMode: false
 };
 
 export const reducer = (state = initialState, action) => {
@@ -47,6 +49,11 @@ export const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				readScreenMessage: action.payload
+			};
+		case SET_SERVICE_MODE:
+			return {
+				...state,
+				serviceMode: action.payload
 			};
 		default:
 			return state;

@@ -4,7 +4,8 @@ import {
 	DEVICE_LOCK,
 	SET_PASSCODE,
 	SAVE_PASSCODE,
-	READ_SCREEN_MESSAGE
+	READ_SCREEN_MESSAGE,
+	SET_SERVICE_MODE
 } from './types.js';
 
 export const setScreenMessage = message => {
@@ -29,22 +30,29 @@ export const lockDevice = bool => {
 };
 
 export const setPasscode = pass => {
-	return { 
-		type: SET_PASSCODE, 
-		payload: pass 
+	return {
+		type: SET_PASSCODE,
+		payload: pass
 	};
 };
 
 export const savePasscode = pass => {
-	return { 
-		type: SAVE_PASSCODE, 
-		payload: pass 
+	return {
+		type: SAVE_PASSCODE,
+		payload: pass
 	};
 };
 
 export const readScreenMessage = mess => {
-	return { 
-		type: READ_SCREEN_MESSAGE, 
-		payload: mess 
+	return {
+		type: READ_SCREEN_MESSAGE,
+		payload: mess
+	};
+};
+
+export const setServiceMode = bool => {
+	return {
+		type: SET_SERVICE_MODE,
+		payload: bool
 	};
 };

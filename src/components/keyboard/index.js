@@ -1,26 +1,65 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import {
 	setScreenActive,
 	setScreenMessage,
 	savePasscode,
 	lockDevice,
 	setPasscode,
-	readScreenMessage
+	readScreenMessage,
+	setServiceMode
 } from '../../redux/actions/actions';
-import { debounce } from '../../utils';
+import { debounce, API, SERIAL_NUMBER } from '../../utils';
 import Key from '../key';
 
 import './style.scss';
 
 class Keyboard extends Component {
+	validateCode = code => {
+		axios.get(`${API}${code}`).then(response => {
+			if (response.data === SERIAL_NUMBER) {
+				this.props.dispatch(setScreenMessage('Unlocking'));
+				setTimeout(() => {
+					this.props.dispatch(setScreenMessage('Ready'));
+					setTimeout(() => {
+						this.props.dispatch(readScreenMessage(false));
+					}, 1500);
+					this.props.dispatch(lockDevice(false));
+					this.props.dispatch(setServiceMode(false));
+				}, 3000);
+			} else {
+				this.props.dispatch(setScreenMessage('Error'));
+				setTimeout(() => {
+					this.props.dispatch(readScreenMessage(false));
+				}, 1500);
+			}
+		});
+	};
+
 	handlePasscode() {
-		const { savedPasscode, deviceLocked, passcode } = this.props;
+		const {
+			savedPasscode,
+			deviceLocked,
+			passcode,
+			serviceMode
+		} = this.props;
 		this.props.dispatch(setScreenActive(true));
 		this.props.dispatch(readScreenMessage(true));
 
+		if (serviceMode) {
+			this.validateCode(passcode);
+			this.props.dispatch(setPasscode(''));
+			return;
+		}
 		if (deviceLocked) {
-			if (savedPasscode === passcode) {
+			if (passcode === '000000' && savedPasscode !== '000000') {
+				this.props.dispatch(setScreenMessage('Service'));
+				this.props.dispatch(setServiceMode(true));
+				setTimeout(() => {
+					this.props.dispatch(readScreenMessage(false));
+				}, 1500);
+			} else if (savedPasscode === passcode) {
 				this.props.dispatch(setScreenMessage('Unlocking'));
 				setTimeout(() => {
 					this.props.dispatch(setScreenMessage('Ready'));
@@ -102,7 +141,8 @@ const mapStateToProps = store => {
 		passcode: store.passcode,
 		screenStatusMessage: store.screenStatusMessage,
 		savedPasscode: store.savedPasscode,
-		deviceLocked: store.deviceLocked
+		deviceLocked: store.deviceLocked,
+		serviceMode: store.serviceMode
 	};
 };
 
