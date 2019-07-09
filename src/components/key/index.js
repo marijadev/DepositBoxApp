@@ -7,10 +7,17 @@ import './style.scss';
 let Key = props => {
 	const handleClick = e => {
 		const { passcode } = props;
+		let trimmedPasscodeToLastSixCharacters = `${passcode}${
+			e.target.innerHTML
+		}`;
+		trimmedPasscodeToLastSixCharacters = trimmedPasscodeToLastSixCharacters.substring(
+			trimmedPasscodeToLastSixCharacters.length - 6,
+			trimmedPasscodeToLastSixCharacters.length
+		);
 		props.debouncedHandler();
 		props.debouncedHandlerIdleScreen();
 		props.dispatch(setScreenActive(true));
-		props.dispatch(setPasscode(`${passcode}${e.target.innerHTML}`));
+		props.dispatch(setPasscode(trimmedPasscodeToLastSixCharacters));
 	};
 
 	return (
