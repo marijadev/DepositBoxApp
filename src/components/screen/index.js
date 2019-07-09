@@ -1,11 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import './style.scss';
 
-class Screen extends Component {
-	state = {};
-	render() {
-		return <div className="depositBox__screen">Screen</div>;
-	}
-}
+const Screen = props => {
+	return (
+		<div
+			className={
+				props.screenActive
+					? 'depositBox__screen active'
+					: 'depositBox__screen inactive'
+			}
+		>
+			<div>{props.deviceLocked ? 'Locked' : 'Unlocked'}</div>
+			<div style={{ textAlign: 'right', fontSize: '32px' }}>
+				{props.readScreenMessage
+					? props.screenStatusMessage
+					: props.passcode}
+			</div>
+		</div>
+	);
+};
 
-export default Screen;
+const mapStateToProps = store => {
+	return {
+		passcode: store.passcode,
+		screenStatusMessage: store.screenStatusMessage,
+		screenActive: store.screenActive,
+		deviceLocked: store.deviceLocked,
+		readScreenMessage: store.readScreenMessage
+	};
+};
+
+const containerScreen = connect(mapStateToProps)(Screen);
+export default containerScreen;
