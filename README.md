@@ -1,3 +1,3 @@
-Link to APP: https://marijadev.github.io.git
+Link to APP: https://marijadev.github.io
 
 
