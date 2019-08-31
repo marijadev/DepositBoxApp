@@ -1,12 +1,11 @@
 Link to APP: https://marijadev.github.io
 
-
+Thr task is to create web simulation of safe deposit box usually found in hotel rooms.
 Backlit screen has two textual segments:
 ● top left segment that indicates if door is locked,
 ● main segment for status messages during locking/unlocking process.
 
-Screen’s backlight is turned off when idle for more than 5 seconds. You can find all possible
-values for the textual segments in Appendix B at the end of this document.
+Screen’s backlight is turned off when idle for more than 5 seconds. 
 
 Locking/unlocking sequence is described in User’s manual for the safe. You can also check out
 this video to see one variation of real world safe implementation: https://youtu.be/qNPJqtGSXuE
@@ -30,3 +29,15 @@ Serial number is predefined and marked with [S/N] and placed on the door of the 
 box. (check the design!)
 5. Returned response from master code validation endpoint will be random for invalid
 master codes. So, there is no clear error response.
+
+Top left segment values:
+● Locked
+● Unlocked
+Main segment values:
+● blank (no value)
+● Error
+● Ready
+● Locking...
+● Unlocking...
+● Service
+● Validating...
